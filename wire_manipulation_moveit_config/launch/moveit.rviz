@@ -652,8 +652,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        None_mounted_cam:
-          Value: false
         a_bot_base_link:
           Value: false
         a_bot_ee_arm_link:
@@ -720,10 +718,6 @@ Visualization Manager:
           Value: false
         camera_link:
           Value: false
-        cpose_usb-crotation_arm_cam:
-          Value: false
-        cpose_usb-crotation_mounted_cam:
-          Value: false
         d415_bottom_screw_frame:
           Value: false
         d415_color_frame:
@@ -772,9 +766,9 @@ Visualization Manager:
           Value: false
         d435i_link:
           Value: false
-        ground:
+        depth_mounted_cam:
           Value: false
-        line_grasp_arm_cam:
+        ground:
           Value: false
         line_grasp_mounted_cam:
           Value: true
@@ -782,15 +776,7 @@ Visualization Manager:
           Value: false
         panel_2:
           Value: false
-        perp_line_grasp_arm_cam:
-          Value: true
-        perp_line_grasp_mounted_cam:
-          Value: false
-        prepose_grasp_arm_cam:
-          Value: true
-        prepose_grasp_mounted_cam:
-          Value: false
-        usb-crotation_mounted_cam:
+        pose_depth_mounted_cam:
           Value: false
         world:
           Value: false
@@ -801,12 +787,6 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        cpose_usb-crotation_arm_cam:
-          line_grasp_arm_cam:
-            perp_line_grasp_arm_cam:
-              {}
-            prepose_grasp_arm_cam:
-              {}
         world:
           a_bot_base_link:
             a_bot_shoulder_link:
@@ -874,16 +854,12 @@ Visualization Manager:
               arm_camera_link:
                 {}
               d415_color_frame:
-                None_mounted_cam:
-                  {}
                 d415_color_optical_frame:
                   {}
-                usb-crotation_mounted_cam:
-                  cpose_usb-crotation_mounted_cam:
+                depth_mounted_cam:
+                  pose_depth_mounted_cam:
                     line_grasp_mounted_cam:
-                      perp_line_grasp_mounted_cam:
-                        prepose_grasp_mounted_cam:
-                          {}
+                      {}
               d415_depth_frame:
                 d415_depth_optical_frame:
                   {}
@@ -952,7 +928,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.050224542617798
+      Distance: 1.949281930923462
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -960,17 +936,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.75
       Focal Point:
-        X: 0.35766705870628357
-        Y: -0.14116202294826508
-        Z: 0.09941744059324265
+        X: 0.32772552967071533
+        Y: -0.1148465946316719
+        Z: 0.023274561390280724
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.48500049114227295
+      Pitch: 0.5800005197525024
       Target Frame: world
-      Yaw: 2.6067728996276855
+      Yaw: 2.616771697998047
     Saved: ~
 Window Geometry:
   Displays:

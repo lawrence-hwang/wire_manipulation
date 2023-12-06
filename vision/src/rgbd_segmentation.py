@@ -4,14 +4,13 @@ from sensor_msgs.msg import Image, CameraInfo
 from cv_bridge import CvBridge,CvBridgeError
 import cv2
 import numpy as np 
-from geometry_msgs.msg import Pose
 
 class RGBDSegmentation(object):
     def __init__(self, cam_spec : str = "mounted_cam"):
         ### Camera Subscribers and Publishers
-        self.aligned_depth_rgb_sub = rospy.Subscriber(f"/{cam_spec}/camera/aligned_depth_to_color/image_raw", Image, self.get_depth_data,queue_size=1)
-        self.rgb_img_sub = rospy.Subscriber(f"/{cam_spec}/camera/color/image_raw", Image, self.rgb_callback, (cam_spec), queue_size=1)
-        self.depth_img_camera_info = rospy.Subscriber(f"/{cam_spec}/camera/aligned_depth_to_color/camera_info",CameraInfo, self.depth_cam_info_callback,queue_size=1)
+        self.aligned_depth_rgb_sub = rospy.Subscriber(f"/{cam_spec}/camera/aligned_depth_to_color/image_raw_throttled", Image, self.get_depth_data,queue_size=1)
+        self.rgb_img_sub = rospy.Subscriber(f"/{cam_spec}/camera/color/image_raw_throttled", Image, self.rgb_callback, (cam_spec), queue_size=1)
+        self.depth_img_camera_info = rospy.Subscriber(f"/{cam_spec}/camera/aligned_depth_to_color/camera_info_throttled",CameraInfo, self.depth_cam_info_callback,queue_size=1)
 
         # Publishers with segmented image info
         self.image_pub = rospy.Publisher(f"/{cam_spec}/rs_segmented_image", Image, queue_size=1)
@@ -36,11 +35,6 @@ class RGBDSegmentation(object):
         upper_color = np.array([180, 255, 255])
         hsv = cv2.cvtColor(cv_image, cv2.COLOR_BGR2HSV)
         mask = cv2.inRange(hsv, lower_color, upper_color)
-
-        # resized_frame = cv2.resize(cv_image, (0,0), fx=0.80, fy=0.80)
-        # cv2.imshow('Preview', resized_frame) 
-        # cv2.waitKey(1)
-        # cv_image = np.asarray(cv_image)
 
         new_img = cv2.bitwise_and(cv_image, cv_image, mask = mask )
 

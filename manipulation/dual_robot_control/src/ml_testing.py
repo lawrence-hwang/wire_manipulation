@@ -77,11 +77,13 @@ if __name__ == "__main__":
     SEARCHING_ARM   = "left"
     SEARCHING_ARM_ID = "a_bot_arm" if SEARCHING_ARM == "right" else "b_bot_arm"
 
-    # status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_mounted_cam")
-    # status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_mounted_cam")
+    status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_mounted_cam")
+    status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_mounted_cam")
+    new_end_pos_jg = [32,-7,-3,-78,35,74]
+    status = robot_control.move_to_joint_goal(GRASPING_ARM, [x * np.pi / 180 for x in new_end_pos_jg])
 
-    joint_goal0 = [44, -22, 19, 127, -105, -81] # start
-    status = robot_control.move_to_joint_goal(SEARCHING_ARM, [x * np.pi / 180 for x in joint_goal0])
+    # joint_goal0 = [44, -22, 19, 127, -105, -81] # start
+    # status = robot_control.move_to_joint_goal(SEARCHING_ARM, [x * np.pi / 180 for x in joint_goal0])
 
     # SEARCH TESTING
     # Search algorithm loop would look like:
@@ -100,7 +102,7 @@ if __name__ == "__main__":
 
     # sleep(5)
 
-    success, message = set_cam_spec_service(True) # swap back to arm only
+    # success, message = set_cam_spec_service(True) # swap back to arm only
 
     # status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_arm_cam")
     # status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_arm_cam")

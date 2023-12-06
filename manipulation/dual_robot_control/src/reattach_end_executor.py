@@ -3,7 +3,6 @@
 #ROS
 import numpy as np
 import rospy
-import tf2_ros
 import geometry_msgs.msg
 from std_msgs.msg import Bool
 
@@ -38,7 +37,7 @@ if __name__ == "__main__":
     joint_goal0_5 = [57, -14, 14, 89, -60, 4]
     joint_goal1 = [21, -13, 15, 81, -19, 9] # unplug
     joint_goal2 = [36, 13, -41, 153, -90, -53] # slip enroute angled down
-    joint_goal3 = [47, 2, -14, -79, 52, -16] # final reattach
+    joint_goal3 = [32, -7, -3, -78, 35, 74] # final stowing
     
     ### START ROUTINE for full demonstration at annual review
     ##  Initialize arms; Sleep, open grippers, and ready pose
@@ -67,15 +66,14 @@ if __name__ == "__main__":
         slip_flag = rospy.wait_for_message("{}_marker_delta_flag".format(GRASPING_ARM_ID), Bool)
         if (slip_flag): # If slip detected, move arm to retrieve wire
             print("STATUS: Slip detected, initiate retrieval")
-            sleep(10) # wait 5 real time seconds for slipped wire to settle
+            sleep(5) # wait 5 real time seconds for slipped wire to settle
             status = robot_control.move_to_target(GRASPING_ARM, 'sleep')
             status = robot_control.set_gripper(GRASPING_ARM, "open")
 
             status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_mounted_cam")
             status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_mounted_cam")
-            # status = robot_control.move_to_frame(GRASPING_ARM, "final_prepose_mounted_cam")
-            # status = robot_control.move_to_frame(GRASPING_ARM, "final_pose_mounted_cam")
 
+            # Restore connector to final pose
             status = robot_control.set_gripper(GRASPING_ARM, "close")
             
             status = robot_control.move_to_joint_goal(GRASPING_ARM, [x * np.pi / 180 for x in joint_goal3])
