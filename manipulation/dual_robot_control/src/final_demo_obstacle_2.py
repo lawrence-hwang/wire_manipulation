@@ -89,8 +89,6 @@ if __name__ == "__main__":
     joint_goal_drop = [37, 19, -61, 154, -87, -62] # drop
 
     joint_goal3 = [32, -7, -3, -78, 35, 74] # final stowing, maybe tune?
-    joint_goal_prepose = [23, -2, 10, -175, -27, 37]
-    joint_goal_grasp = [20, -32, 15, -175, -51, 37]
 
 
     listener = tf.TransformListener()
@@ -181,14 +179,8 @@ if __name__ == "__main__":
                     print(Fore.GREEN + "STATUS:= " + Fore.WHITE + "Arm cam search successful, send grasping arm for retrieval")
 
                     sleep(10)
-                    ### SET DEPENDING ON ARM BEHAVIOR
-                    mode = True
-                    if mode == True:
-                        status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_arm_cam_1")
-                        status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_arm_cam_1")
-                    elif mode == False:
-                        status = robot_control.move_to_joint_goal(GRASPING_ARM, [x * np.pi / 180 for x in joint_goal_grasp])
-                        status = robot_control.move_to_joint_goal(GRASPING_ARM, [x * np.pi / 180 for x in joint_goal_prepose])
+                    status = robot_control.move_to_frame(GRASPING_ARM, "prepose_grasp_arm_cam_1")
+                    status = robot_control.move_to_frame(GRASPING_ARM, "perp_line_grasp_arm_cam_1")
 
                     # Search done, return view to rear cam
                     # success, message = set_cam_spec_service(False) # Swap back to rear cam
